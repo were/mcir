@@ -16,11 +16,10 @@ Before learning compiler, you should have basic ideas on:
 \begin{itemize}
   \item Regular expressions
   \item Context-free grammar
-  \item Library linking
   \item Assembly codes
 \end{itemize}
 
-After going through the whole process, you are supposed to learn:
+\noindent After going through the whole process, you are supposed to learn:
 \begin{itemize}
   \item Basic concepts of compilation including parsing, IR, optimization, and code generation.
   \item Knowing the usage of the most compiler infrastructure LLVM.
@@ -42,7 +41,7 @@ To keep the compiler implementation simple, we assume:
 
 \section{Language Manual}
 
-\begin{lstlisting}[caption=Hello world!, label=code:hw, language=C]
+\begin{lstlisting}[caption=Hello world!\label{code:hw}, language=C]
 int main() {
   // This function can be invoked before declaration.
   printHello();
@@ -113,16 +112,14 @@ This design concept is widely adopted in modern languages, like Java and Python.
 Pointers can be \texttt{null} when empty. As mentioned before, there is no implicit conversion
 to \texttt{0} for \texttt{null}.
 
-\begin{lstlisting}[caption=Class definition,label=code:class]
+\begin{lstlisting}[caption=Class definition\label{code:class}]
 class A {
   int value;
-
   // Constructor is similar syntax to C,
-  // but we do not have : () initialization.
+  // but have no ": ()" initialization.
   A(int v) {
     this.value = v;
   }
-
   void print() {
     println(this.value);
   }
@@ -170,15 +167,15 @@ A[] a = new A[128];
 \subsection{Expressions}
 
 \begin{itemize}
-  \item Arithmetic Opertions: \texttt{+,-,*,/}
-  \item Bitwise Opertions: \verb|&,|\texttt{|}\verb|^,~|
-  \item Logic Operations: \verb|&&,|\texttt{||}\verb|,!|
-  \item Increase, Decrease: \texttt{++,--}
-  \item Access the attributes: \texttt{.}
+  \item Arithmetic Opertions: \texttt{+, -, *, /}
+  \item Bitwise Opertions: \verb|&, |\texttt{|, }\verb|^, ~|
+  \item Logic Operations: \verb|&&, |\texttt{||, }\verb|, !|
+  \item Increase, Decrease: \texttt{++, --}
+  \item Access Attributes: \texttt{.}
   \item Pranthesis: \texttt{()}
   \item Brackets: \texttt{[]}
   \item Negative: \texttt{-}
-  \item Comparison: \verb|==,>,<|
+  \item Comparison: \verb|==, >, <|
   \item Assignment: \texttt{=}
     \begin{itemize}
       \item For simplicity, unlike C, assignment has no return value.
@@ -218,7 +215,7 @@ while (cond) {
 Unlike C, though compound statement does open a new scope,
 we cannot define variables with same id to hide instances in outer scopes,
 as it is shown in Listing~\ref{code:hide}.
-\begin{lstlisting}[caption=While loop]
+\begin{lstlisting}[caption=An example of scope\label{code:hide}]
 int a;
 {
   int a; // This is not allowed!
