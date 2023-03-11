@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{An Introduction to ECC Lang}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Prerequisites}
+
+Before learning compiler, you should have basic ideas on:
+\begin{itemize}
+  \item Regular expressions
+  \item Context-free grammar
+  \item Library linking
+  \item Assembly codes
+\end{itemize}
+
+\section{Overview}
+
+Educating Compiler Construction Language (ECC Lang) is writtten to define
+a language better serve the purpose of compiler education.
+The syntaxes and design concepts are inspired by hybridizing C and Java.
+To keep the compiler implementation simple, we assume:
+\begin{itemize}
+  \item All the programs written in this language should \textbf{NOT exceed 1MB}.
+    Otherwise, the compiler is not guaranteed/required to output a correct result!
+  \item Only single program compilation is supported for now.
+\end{itemize}
+
+\section{Language Manual}
+
+An ECC program should be composed by the following aspects:
+
+\begin{itemize}
+  \item Function definition.
+    \begin{itemize}
+      \item \texttt{main} function: The program starts with. This function have no arguments, and return an integeter.
+      \item For the better purpose of education, we do NOT support interface declration
+	\footnote{Interface declration is actually an legacy from the early stage of computer system design. Because of the
+	limited disk/memory size, it is highly desirable to compile the whole program by scanning it only once}.
+    \end{itemize}
+  \item Class definition.
+  \item Global veriable declaration.
+\end{itemize}
+
+\section{Exercises}
+
+According to the language manual, define the program in a context-free grammar.
+
+\end{document}
