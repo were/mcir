@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/ecc.dir/src/ast.cc.o CMakeFiles/ecc.dir/src/generated/lexer.yy.cc.o CMakeFiles/ecc.dir/src/generated/parser.tab.cc.o CMakeFiles/ecc.dir/src/main.cc.o -o ecc 

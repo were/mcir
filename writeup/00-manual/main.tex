@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{verbatim}
 \usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true,frame=lines}
 
 \title{An Introduction to ECC Lang}
@@ -17,6 +19,7 @@ Before learning compiler, you should have basic ideas on:
   \item Regular expressions
   \item Context-free grammar
   \item Assembly codes
+  \item Writing multi-file C++ project and linking against external libs.
 \end{itemize}
 
 \noindent After going through the whole process, you are supposed to learn:
@@ -32,7 +35,9 @@ Educating Compiler Construction Language (ECC Lang) is writtten to define
 a language better serve the purpose of compiler education.
 Listing~\ref{code:hw} shows an example of this language.
 The syntaxes and design concepts are inspired by hybridizing C and Java.
-To keep the compiler implementation simple, we assume:
+This keeps the language implementation simple, so that we can focus on
+learning the compiler principles.
+We assume:
 \begin{itemize}
   \item All the programs written in this language should \textbf{NOT exceed 1MB}.
     Otherwise, the compiler is not guaranteed/required to output a correct result!
@@ -75,6 +80,8 @@ We only support \texttt{//} to comment a line. No \texttt{/**/} supported.
 Declaring a varialbe is just as simple as \texttt{\{type\} \{id\} [= \{initializer\}];},
 and the initializer is optional. The \texttt{id} of a variable should not start with a
 number, and it can be composed by a combination of numbers, letters, and underscore.
+To keep the syntax simple, we do not support declaring multiple variables separated by
+commas (\texttt{,}).
 
 \subsubsection{Builtin Types}
 These following types are builtin types:
@@ -98,8 +105,9 @@ These following types are builtin types:
     \end{itemize}
 \end{itemize}
 
-Note \texttt{int}, \texttt{char}, and \texttt{bool} are plain old data, so they have instances.
-\texttt{string} behaviors will be regarded as a class (will be explained later).
+Note \texttt{int}, \texttt{char}, and \texttt{bool} are plain old data (POD), so they have instances.
+\texttt{string} is non-modifiable, so its behavior of being a POD or a class,
+does not matter that much.
 
 
 \subsubsection{Classes}
