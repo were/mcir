@@ -1,3 +1,0 @@
-/home/were/compiler-construction/impl/build/CMakeFiles/rebuild_cache.dir
-/home/were/compiler-construction/impl/build/CMakeFiles/ecc.dir
-/home/were/compiler-construction/impl/build/CMakeFiles/edit_cache.dir
