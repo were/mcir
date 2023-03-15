@@ -14,27 +14,38 @@
 
 \section{Prerequisites \& Post-gain}
 
-Before learning compiler, you should have basic ideas on:
-\begin{itemize}
-  \item Regular expressions
-  \item Context-free grammar
-  \item Assembly codes
-  \item Writing multi-file C++ project and linking against external libs.
-\end{itemize}
+Before learning compiler, you should have basic ideas on at least
+one main stream programming language (C++, Java, or Python).
+All other knowledge required by building a compiler will
+be covered along with each phase of compilation, including
+regular expressions, context-free grammar, assembly codes,
+as well as other programming tools\footnote{This tutorial
+will stick on C++ implementation, so C-based parser generator,
+and compilation toolchains will also be covered}.
 
-\noindent After going through the whole process, you are supposed to learn:
+\noindent This tutorial is aimed at learning compilers
+both theoretically and practially. You will have:
 \begin{itemize}
-  \item Basic concepts of compilation including parsing, IR, optimization, and code generation.
+  \item Basic concepts of compilation including parsing, intermediate representation,
+    optimization, and code generation.
   \item Knowing the usage of the most compiler infrastructure LLVM.
   \item Significantly improved coding power after writing a compiler!
 \end{itemize}
 
 \section{Overview}
 
-Educating Compiler Construction Language (ECC Lang) is writtten to define
-a language better serve the purpose of compiler education.
-Listing~\ref{code:hw} shows an example of this language.
+Compiler is to translate a program written in high-level language,
+which is closer to our natural language and intuitive understandings,
+to computer understandable assembly code.
+
+\noindent Educating Compiler Construction Language (ECC Lang)
+is writtten to define a language better serve the purpose of compiler education.
 The syntaxes and design concepts are inspired by hybridizing C and Java.
+Excessive and redundant syntax sugars are removed to keep
+the language simple. Meanwhile, modern language features
+are introduced to better understand the design concept.
+
+\noindent Listing~\ref{code:hw} shows an example of this language.
 This keeps the language implementation simple, so that we can focus on
 learning the compiler principles.
 We assume:
@@ -122,15 +133,16 @@ to \texttt{0} for \texttt{null}.
 
 \begin{lstlisting}[caption=Class definition\label{code:class}]
 class A {
-  int value;
   // Constructor is similar syntax to C,
   // but have no ": ()" initialization.
   A(int v) {
     this.value = v;
   }
   void print() {
-    println(this.value);
+    // This is OK, even though `value` defined later than `print()`
+    println(toString(this.value));
   }
+  int value;
 };
 
 int main() {
@@ -141,6 +153,21 @@ int main() {
   a.print(); // prints 1
   return 0;
 }
+\end{lstlisting}
+
+\noindent In addition, within the scope of class,
+the variable difinition is slightly different
+from it is in the global scope. In the example shown above,
+it is OK to use \texttt{value} before it is defined within
+the scope of a class. However, it makes no sense to use a global
+variable before its definition.
+
+\begin{lstlisting}[caption=An example of scoping\label{code:too-early}]
+void foo() {
+  // Too early to use `a`!
+  println(a);
+}
+string a;
 \end{lstlisting}
 
 TODO(@were): support destructor, inherence, virtual function, and interfacing.
@@ -188,6 +215,7 @@ A[] a = new A[128];
     \begin{itemize}
       \item For simplicity, unlike C, assignment has no return value.
 	Therefore, no \texttt{a=b=0} allowed.
+      \item For simplicity, no in-place update (\texttt{+=}) supported.
     \end{itemize}
 \end{itemize}
 
@@ -234,11 +262,24 @@ int a;
 
 \subsection{Function}
 
+\subsubsection{Builtins}
+
+Several builtin functions are supported for I/O.
+\begin{itemize}
+  \item \texttt{void print(string str):} Write the given string to stdout.
+  \item \texttt{void println(string str):} Write the given string to stdout and append a newline.
+  \item \texttt{int getInt():} Get an integer from stdin.
+  \item \texttt{string getLine():} Get a line of string from stdin.
+  \item \texttt{string toString(i):} Convert the given int to string.
+\end{itemize}
+
+\subsubsection{Function Definition}
+
 Function declaration is the same C, but we allow to define new sub-functions
 within a function that captures all the values in that scope. If the return
 type is not void, the compiler should not pass the semantic check.
 
-\begin{lstlisting}[caption=While loop]
+\begin{lstlisting}[caption=Function Declaration]
 {return-type} {func-id}({arg-list}) {
   // do something.
   // you can still define new functions here.
@@ -251,6 +292,6 @@ To sum up, these key words are reserved \texttt{bool int string null void true f
 
 \section{Exercises}
 
-According to the language manual, define the program in a context-free grammar.
+According to the language manual, write a compiler for this language.
 
 \end{document}
