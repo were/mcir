@@ -53,46 +53,44 @@ We assume:
 An ECC program should be composed by the following aspects:
 
 1. Function definition.
-  1. `main` function: The program starts with. This function have no arguments, and return an integeter.
-  2. For the better purpose of education, we do NOT support interface declration.
+
+   - `main` function: The program starts with. This function have no arguments, and return an integeter.
+   - For the better purpose of education, we do NOT support interface declration.
      (Interface declration is actually an legacy from the early stage of computer system design. Because of the
      limited disk/memory size, it is highly desirable to compile the whole program by scanning it only once.)
+
 3. Class definition.
 4. Global veriable declaration.
 
-#### Comments
+### Comments
 
 We only support `//` to comment a line. No `/**/` supported.
 
-#### Data Types (\& their Constants)
+### Data Types (\& their Constants)
 
-Declaring a varialbe is just as simple as `let \{type\} \{id\} [= \{initializer\}];`,
+Declaring a varialbe is just as simple as `let {type} {id} [= {initializer}];`,
 and the initializer is optional. The `id` of a variable should not start with a
 number, and it can be composed by a combination of numbers, letters, and underscore.
 To keep the syntax simple, we do not support declaring multiple variables separated by
 commas (`,`).
 
-\subsubsection{Builtin Types}
+### Builtin Types
 These following types are builtin types:
-\begin{itemize}
-  \item \texttt{void}: Cannot be an variable, can only be the return type of a function.
-  \item \texttt{int}: A 32-bit signed integer. Constant integers can range from $[-2^{31},2^{31}-1]$.
-  \item \texttt{char}: A 8-bit char. To keep it simple, all the char surrounded by a pair of
+1. `void`: Cannot be an variable, can only be the return type of a function.
+2. `int`: A 32-bit signed integer. Constant integers can range from $[-2^{31},2^{31}-1]$.
+3. `char`: A 8-bit char. To keep it simple, all the char surrounded by a pair of
     \texttt{'}s should be printable.
-    Only 4 backslash escape characters are supported, $\backslash$\texttt{'}, $\backslash$\texttt{"},
-    $\backslash\backslash$, and $\backslash$\texttt{n}.
-  \item \texttt{bool}: A boolean value, whose constants can be either \texttt{true},or \texttt{false}.
-    Unlike C, there is no implicit conversion to bool for all the expressions (\texttt{int}, \texttt{char}, o \texttt{classes}).
-  \item \texttt{string}: Literals surrounded by \texttt{"} are constants of strings. Just like
-    \texttt{char}, each char of a string should either be printable or supported escape characters.
+    Only 4 backslash escape characters are supported, `\'`, `\"`,
+    `\\`, and `\n`.
+4. `bool`: A boolean value, whose constants can be either `true`,or `false`.
+    Unlike C, there is no implicit conversion to bool for all the expressions (`int`, `char`, or `classes`).
+5. `string`: Literals surrounded by \texttt{"} are constants of strings. Just like
+    `char` each char of a string should either be printable or supported escape characters.
     Strings are immutable.
     The string data type with three builtin members:
-    \begin{itemize}
-      \item \texttt{int size()}: return the length of this string.
-      \item \texttt{int parseInt()}: convert the string into an integer.
-      \item \texttt{char at(int pos)}: starting with 0, return the character at the given position.
-    \end{itemize}
-\end{itemize}
+      - `int length()` return the length of this string.
+      - `int parseInt()` convert the string into an integer.
+      - `char at(int pos)` starting with 0, return the character at the given position.
 
 Note \texttt{int}, \texttt{char}, and \texttt{bool} are plain old data (POD), so they have instances.
 \texttt{string} is non-modifiable, so its behavior of being a POD or a class,
