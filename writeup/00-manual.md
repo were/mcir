@@ -256,7 +256,7 @@ func {func-id}({arg-list}) -> {return-type} {
 
 Similarly, the `func` keyword is also to keep the syntax simple.
 
-#### Keywords
+### Keywords
 
 To sum up, these key words are reserved `bool int string null void true false if for while break continue return new class this func let`.
 
