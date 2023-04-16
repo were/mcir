@@ -1,0 +1,281 @@
+# An Introduction to ECC Lang
+
+## Prerequisites \& Post-gain
+
+Before learning compiler, you should have basic ideas on at least
+one main stream programming language (C++, Java, or Python).
+All other knowledge required by building a compiler will
+be covered along with each phase of compilation, including
+regular expressions, context-free grammar, assembly codes,
+as well as other programming tools\footnote{This tutorial
+will stick on C++ implementation, so C-based parser generator,
+and compilation toolchains will also be covered}.
+
+This tutorial is aimed at learning compilers
+both theoretically and practially. You will have:
+1. Basic concepts of compilation including parsing, intermediate representation,
+   optimization, and code generation.
+2. Knowing the usage of the most compiler infrastructure LLVM.
+3. Significantly improved coding power after writing a compiler!
+
+## Overview
+
+Engineering Compiler Construction Language (ECC Lang)
+is writtten to define a language better serve the purpose of compiler education.
+The syntaxes and design concepts are inspired by hybridizing C and Java.
+Excessive and redundant syntax sugars are removed to keep
+the language simple. Meanwhile, modern language features
+are introduced to better understand the design concept.
+
+````
+int main() {
+  // This function can be invoked before declaration.
+  printHello();
+}
+void printHello() {
+  println("Hello world!");
+}
+````
+
+Listing above shows an example of this language.
+This keeps the language implementation simple, so that we can focus on
+learning the compiler principles.
+We assume:
+
+1. All the programs written in this language should **NOT exceed 1MB**.
+   Otherwise, the compiler is not guaranteed/required to output a correct result!
+2. Only single program compilation is supported for now.
+
+## Language Manual
+
+### Overview
+
+An ECC program should be composed by the following aspects:
+
+1. Function definition.
+  1. `main` function: The program starts with. This function have no arguments, and return an integeter.
+  2. For the better purpose of education, we do NOT support interface declration.
+     (Interface declration is actually an legacy from the early stage of computer system design. Because of the
+     limited disk/memory size, it is highly desirable to compile the whole program by scanning it only once.)
+3. Class definition.
+4. Global veriable declaration.
+
+#### Comments
+
+We only support `//` to comment a line. No `/**/` supported.
+
+#### Data Types (\& their Constants)
+
+Declaring a varialbe is just as simple as `let \{type\} \{id\} [= \{initializer\}];`,
+and the initializer is optional. The `id` of a variable should not start with a
+number, and it can be composed by a combination of numbers, letters, and underscore.
+To keep the syntax simple, we do not support declaring multiple variables separated by
+commas (`,`).
+
+\subsubsection{Builtin Types}
+These following types are builtin types:
+\begin{itemize}
+  \item \texttt{void}: Cannot be an variable, can only be the return type of a function.
+  \item \texttt{int}: A 32-bit signed integer. Constant integers can range from $[-2^{31},2^{31}-1]$.
+  \item \texttt{char}: A 8-bit char. To keep it simple, all the char surrounded by a pair of
+    \texttt{'}s should be printable.
+    Only 4 backslash escape characters are supported, $\backslash$\texttt{'}, $\backslash$\texttt{"},
+    $\backslash\backslash$, and $\backslash$\texttt{n}.
+  \item \texttt{bool}: A boolean value, whose constants can be either \texttt{true},or \texttt{false}.
+    Unlike C, there is no implicit conversion to bool for all the expressions (\texttt{int}, \texttt{char}, o \texttt{classes}).
+  \item \texttt{string}: Literals surrounded by \texttt{"} are constants of strings. Just like
+    \texttt{char}, each char of a string should either be printable or supported escape characters.
+    Strings are immutable.
+    The string data type with three builtin members:
+    \begin{itemize}
+      \item \texttt{int size()}: return the length of this string.
+      \item \texttt{int parseInt()}: convert the string into an integer.
+      \item \texttt{char at(int pos)}: starting with 0, return the character at the given position.
+    \end{itemize}
+\end{itemize}
+
+Note \texttt{int}, \texttt{char}, and \texttt{bool} are plain old data (POD), so they have instances.
+\texttt{string} is non-modifiable, so its behavior of being a POD or a class,
+does not matter that much.
+
+
+\subsubsection{Classes}
+
+We also allow users to define their classes and classes can have their member functions.
+Listing~\ref{code:class} shows an example of defining a class.
+The class name has the same requirement as the variable id.
+Unlike conventional C, a class can only be a pointer to an instance.
+This design concept is widely adopted in modern languages, like Java and Python.
+Pointers can be \texttt{null} when empty. As mentioned before, there is no implicit conversion
+to \texttt{0} for \texttt{null}.
+
+\begin{lstlisting}[caption=Class definition\label{code:class}]
+class A {
+  // Constructor is similar syntax to C,
+  // but have no ": ()" initialization.
+  A(int v) {
+    this.value = v;
+  }
+  void print() {
+    // This is OK, even though `value` defined later than `print()`
+    println(toString(this.value));
+  }
+  int value;
+};
+
+int main() {
+  A a = new A(5);
+  A b = a;
+  a.print(); // prints 5
+  b.a = 1;
+  a.print(); // prints 1
+  return 0;
+}
+\end{lstlisting}
+
+\noindent In addition, within the scope of class,
+the variable difinition is slightly different
+from it is in the global scope. In the example shown above,
+it is OK to use \texttt{value} before it is defined within
+the scope of a class. However, it makes no sense to use a global
+variable before its definition.
+
+\begin{lstlisting}[caption=An example of scoping\label{code:too-early}]
+void foo() {
+  // Too early to use `a`!
+  println(a);
+}
+string a;
+\end{lstlisting}
+
+TODO(@were): support destructor, inherence, virtual function, and interfacing.
+
+\subsubsection{Arrays}
+
+Array allocation is very similar in what we have in Java.
+Arrays have one builtin method \texttt{size()} for the size of the array.
+
+\begin{lstlisting}[caption=1-D Array Allocation]
+int[] a = new int[128];
+\end{lstlisting}
+
+We support two types of jagged array allocation.
+\begin{lstlisting}[caption=1-D Array Allocation]
+int[][] a = new int[128][128];
+int[][] b = new int[128][];
+for (int i = 0; i < 128; ++i) {
+  b[i] = new int[i + 1];
+}
+\end{lstlisting}
+
+We also support compound arrays.
+\begin{lstlisting}[caption=1-D Array Allocation]
+class A {
+  // ...
+};
+// Allocate 128 empty pointers of A.
+A[] a = new A[128];
+\end{lstlisting}
+
+\subsection{Expressions}
+
+\begin{itemize}
+  \item Arithmetic Opertions: \texttt{+, -, *, /}
+  \item Bitwise Opertions: \verb|&, |\texttt{|, }\verb|^, ~|
+  \item Logic Operations: \verb|&&, |\texttt{||, }\verb|, !|
+  \item Increase, Decrease: \texttt{++, --}
+  \item Access Attributes: \texttt{.}
+  \item Pranthesis: \texttt{()}
+  \item Brackets: \texttt{[]}
+  \item Negative: \texttt{-}
+  \item Comparison: \verb|==, >, <|
+  \item Assignment: \texttt{=}
+    \begin{itemize}
+      \item For simplicity, unlike C, assignment has no return value.
+	Therefore, no \texttt{a=b=0} allowed.
+      \item For simplicity, no in-place update (\texttt{+=}) supported.
+    \end{itemize}
+\end{itemize}
+
+The priority of these operations are the same as C.
+
+\section{Statements}
+
+Every statement can be a declaration, an assignment,
+a conditional statement, for-loop,
+while-loop, or a compound statement.
+
+\begin{lstlisting}[caption=Conditional statement]
+if (a > b) {
+  // do a
+} else {
+  // do b
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=For loop]
+for (int i = 0; i < n; ++i) {
+  // do something
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=While loop]
+while (cond) {
+  // do something
+}
+\end{lstlisting}
+
+
+Unlike C, though compound statement does open a new scope,
+we cannot define variables with same id to hide instances in outer scopes,
+as it is shown in Listing~\ref{code:hide}.
+\begin{lstlisting}[caption=An example of scope\label{code:hide}]
+int a;
+{
+  int a; // This is not allowed!
+  int b; // b is dedicated to this scope.
+}
+// We cannot use b here.
+\end{lstlisting}
+
+\subsection{Function}
+
+\subsubsection{Builtins}
+
+Several builtin functions are supported for I/O.
+\begin{itemize}
+  \item \texttt{void print(string str):} Write the given string to stdout.
+  \item \texttt{void println(string str):} Write the given string to stdout and append a newline.
+  \item \texttt{int getInt():} Get an integer from stdin.
+  \item \texttt{string getLine():} Get a line of string from stdin.
+  \item \texttt{string toString(i):} Convert the given int to string.
+\end{itemize}
+
+\subsubsection{Function Definition}
+
+Function declaration is the same C, but we allow to define new sub-functions
+within a function that captures all the values in that scope. If the return
+type is not void, the compiler should not pass the semantic check.
+
+\begin{lstlisting}[caption=Function Declaration]
+{return-type} {func-id}({arg-list}) {
+  // do something.
+  // you can still define new functions here.
+}
+\end{lstlisting}
+
+\subsection{Key Words}
+
+To sum up, these key words are reserved \texttt{bool int string null void true false if for while break continue return new class this}.
+
+\section{Exercises}
+
+According to the language manual, write a compiler for this language. Here are some hints:
+
+\begin{itemize}
+  \item Be incremental! Start with a something simple and incrementally extend and test it!
+  \item Be bold! Do not hesitate to make design decisions! Get hands dirty first!
+  \item Be patient! If certain bad deisng decision makes it hard to extend, do not hesitate to refactor!
+\end{itemize}
+
+\end{document}
