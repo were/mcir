@@ -28,11 +28,11 @@ the language simple. Meanwhile, modern language features
 are introduced to better understand the design concept.
 
 ````
-int main() {
+func main() -> int {
   // This function can be invoked before declaration.
   printHello();
 }
-void printHello() {
+func printHello() -> void {
   println("Hello world!");
 }
 ````
@@ -72,7 +72,8 @@ Declaring a varialbe is just as simple as `let {type} {id} [= {initializer}];`,
 and the initializer is optional. The `id` of a variable should not start with a
 number, and it can be composed by a combination of numbers, letters, and underscore.
 To keep the syntax simple, we do not support declaring multiple variables separated by
-commas (`,`).
+commas (`,`). The `let` keyword is also to keep the parser look ahead simple. The
+terminology will be explained later.
 
 ### Builtin Types
 These following types are builtin types:
@@ -92,29 +93,24 @@ These following types are builtin types:
       - `int parseInt()` convert the string into an integer.
       - `char at(int pos)` starting with 0, return the character at the given position.
 
-Note \texttt{int}, \texttt{char}, and \texttt{bool} are plain old data (POD), so they have instances.
-\texttt{string} is non-modifiable, so its behavior of being a POD or a class,
+Note `int`, `char`, and `bool` are plain old data (POD), so they have instances.
+`string` is non-modifiable, so its behavior of being a POD or a class,
 does not matter that much.
 
 
-\subsubsection{Classes}
+### Classes
 
 We also allow users to define their classes and classes can have their member functions.
-Listing~\ref{code:class} shows an example of defining a class.
+Listing below shows an example of defining a class.
 The class name has the same requirement as the variable id.
 Unlike conventional C, a class can only be a pointer to an instance.
 This design concept is widely adopted in modern languages, like Java and Python.
-Pointers can be \texttt{null} when empty. As mentioned before, there is no implicit conversion
-to \texttt{0} for \texttt{null}.
+Pointers can be `null` when empty. As mentioned before, there is no implicit conversion
+from `0` to `null`.
 
-\begin{lstlisting}[caption=Class definition\label{code:class}]
+````
 class A {
-  // Constructor is similar syntax to C,
-  // but have no ": ()" initialization.
-  A(int v) {
-    this.value = v;
-  }
-  void print() {
+  print() -> void {
     // This is OK, even though `value` defined later than `print()`
     println(toString(this.value));
   }
@@ -122,158 +118,153 @@ class A {
 };
 
 int main() {
-  A a = new A(5);
-  A b = a;
+  A a = new A;
+  a.value = 5;
   a.print(); // prints 5
+  A b = a;
   b.a = 1;
   a.print(); // prints 1
   return 0;
 }
-\end{lstlisting}
+````
 
-\noindent In addition, within the scope of class,
+In addition, within the scope of class,
 the variable difinition is slightly different
 from it is in the global scope. In the example shown above,
-it is OK to use \texttt{value} before it is defined within
+it is OK to use `value` before it is defined within
 the scope of a class. However, it makes no sense to use a global
 variable before its definition.
 
-\begin{lstlisting}[caption=An example of scoping\label{code:too-early}]
+````
 void foo() {
   // Too early to use `a`!
   println(a);
 }
 string a;
-\end{lstlisting}
+````
 
 TODO(@were): support destructor, inherence, virtual function, and interfacing.
 
-\subsubsection{Arrays}
+### Arrays
 
 Array allocation is very similar in what we have in Java.
-Arrays have one builtin method \texttt{size()} for the size of the array.
+Arrays have one builtin method `size()` for the size of the array.
 
-\begin{lstlisting}[caption=1-D Array Allocation]
+````
 int[] a = new int[128];
-\end{lstlisting}
+````
 
 We support two types of jagged array allocation.
-\begin{lstlisting}[caption=1-D Array Allocation]
+
+````
 int[][] a = new int[128][128];
 int[][] b = new int[128][];
-for (int i = 0; i < 128; ++i) {
+for i in 0..128 {
   b[i] = new int[i + 1];
 }
-\end{lstlisting}
+````
 
 We also support compound arrays.
-\begin{lstlisting}[caption=1-D Array Allocation]
+````
 class A {
   // ...
 };
 // Allocate 128 empty pointers of A.
 A[] a = new A[128];
-\end{lstlisting}
+````
 
-\subsection{Expressions}
+### Expressions
 
-\begin{itemize}
-  \item Arithmetic Opertions: \texttt{+, -, *, /}
-  \item Bitwise Opertions: \verb|&, |\texttt{|, }\verb|^, ~|
-  \item Logic Operations: \verb|&&, |\texttt{||, }\verb|, !|
-  \item Increase, Decrease: \texttt{++, --}
-  \item Access Attributes: \texttt{.}
-  \item Pranthesis: \texttt{()}
-  \item Brackets: \texttt{[]}
-  \item Negative: \texttt{-}
-  \item Comparison: \verb|==, >, <|
-  \item Assignment: \texttt{=}
-    \begin{itemize}
-      \item For simplicity, unlike C, assignment has no return value.
-	Therefore, no \texttt{a=b=0} allowed.
-      \item For simplicity, no in-place update (\texttt{+=}) supported.
-    \end{itemize}
-\end{itemize}
+1. Arithmetic Opertions: `+, -, *, /`
+2. Bitwise Opertions: `|,&,^,~`
+3. Logic Operations: `&&, ||, !`
+4. Access Attributes: \texttt{.}
+5. Pranthesis: `()`
+6. Brackets: `[]`
+7. Negative: `-`
+8. Comparison: `==, >, <`
+9. Assignment: `=`
+    - For simplicity, unlike C, assignment has no return value.
+      Therefore, no `a=b=0` allowed.
+    - For simplicity, no in-place update (`+=`) supported.
 
 The priority of these operations are the same as C.
 
-\section{Statements}
+### Statements
 
 Every statement can be a declaration, an assignment,
 a conditional statement, for-loop,
 while-loop, or a compound statement.
 
-\begin{lstlisting}[caption=Conditional statement]
+````
 if (a > b) {
   // do a
 } else {
   // do b
 }
-\end{lstlisting}
+````
 
-\begin{lstlisting}[caption=For loop]
-for (int i = 0; i < n; ++i) {
+````
+for i in 0..n {
   // do something
 }
-\end{lstlisting}
+````
 
-\begin{lstlisting}[caption=While loop]
+````
 while (cond) {
   // do something
 }
-\end{lstlisting}
+````
 
 
 Unlike C, though compound statement does open a new scope,
 we cannot define variables with same id to hide instances in outer scopes,
-as it is shown in Listing~\ref{code:hide}.
-\begin{lstlisting}[caption=An example of scope\label{code:hide}]
+as it is shown in Listing below.
+
+````
 int a;
 {
   int a; // This is not allowed!
   int b; // b is dedicated to this scope.
 }
 // We cannot use b here.
-\end{lstlisting}
+````
 
-\subsection{Function}
+### Function
 
-\subsubsection{Builtins}
+#### Builtins
 
 Several builtin functions are supported for I/O.
-\begin{itemize}
-  \item \texttt{void print(string str):} Write the given string to stdout.
-  \item \texttt{void println(string str):} Write the given string to stdout and append a newline.
-  \item \texttt{int getInt():} Get an integer from stdin.
-  \item \texttt{string getLine():} Get a line of string from stdin.
-  \item \texttt{string toString(i):} Convert the given int to string.
-\end{itemize}
+1. `void print(string str):` Write the given string to stdout.
+2. `void println(string str):` Write the given string to stdout and append a newline.
+3. `int getInt():` Get an integer from stdin.
+4. `string getLine():` Get a line of string from stdin.
+5. `string toString(i):` Convert the given int to string.
 
-\subsubsection{Function Definition}
+#### Function Definition
 
 Function declaration is the same C, but we allow to define new sub-functions
 within a function that captures all the values in that scope. If the return
 type is not void, the compiler should not pass the semantic check.
 
-\begin{lstlisting}[caption=Function Declaration]
-{return-type} {func-id}({arg-list}) {
+````
+func {func-id}({arg-list}) -> {return-type} {
   // do something.
   // you can still define new functions here.
 }
-\end{lstlisting}
+````
 
-\subsection{Key Words}
+Similarly, the `func` keyword is also to keep the syntax simple.
 
-To sum up, these key words are reserved \texttt{bool int string null void true false if for while break continue return new class this}.
+#### Keywords
 
-\section{Exercises}
+To sum up, these key words are reserved `bool int string null void true false if for while break continue return new class this func let`.
+
+## Exercise
 
 According to the language manual, write a compiler for this language. Here are some hints:
 
-\begin{itemize}
-  \item Be incremental! Start with a something simple and incrementally extend and test it!
-  \item Be bold! Do not hesitate to make design decisions! Get hands dirty first!
-  \item Be patient! If certain bad deisng decision makes it hard to extend, do not hesitate to refactor!
-\end{itemize}
+1. Be incremental! Start with a something simple and incrementally extend and test it!
+2. Be bold! Do not hesitate to make design decisions! Get hands dirty first!
+3. Be patient! If certain bad deisng decision makes it hard to extend, do not hesitate to refactor!
 
-\end{document}
