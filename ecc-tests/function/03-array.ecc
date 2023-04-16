@@ -1,0 +1,4 @@
+func main() -> int {
+  let int[] a;
+  return 0;
+}

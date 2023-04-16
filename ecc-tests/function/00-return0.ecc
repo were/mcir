@@ -1,0 +1,6 @@
+// Test if we can skip comments
+
+func main() -> int {
+  return 0;
+}
+

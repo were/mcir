@@ -1,3 +1,3 @@
-[submodule "ecc-cpp"]
-	path = ecc-cpp
-	url = https://github.com/were/ecc-cpp
+[submodule "ecc-rust"]
+	path = ecc-rust
+	url = https://github.com/were/ecc-rust

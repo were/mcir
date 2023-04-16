@@ -1,0 +1,11 @@
+class A {
+  B b;
+}
+
+class B {
+  A a;
+}
+
+func main() -> int {
+  return 0;
+}
