@@ -4,6 +4,12 @@ wasm_binary = process.argv[2]
 
 fd = fs.readFileSync(wasm_binary, undefined)
 
+input_buffer = []
+
+process.stdin.on('data', function (data) {
+  input_buffer.push(data)
+})
+
 function print_int(x) {
   process.stdout.write(x.toString())
 }
