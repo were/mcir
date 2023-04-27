@@ -66,7 +66,64 @@ func main() {
 
 So far, we know the key aspects of defining a programming language,
 and now we discuss how a compiler acts on it to generate executable
-binaries.
+binaries. The given program will undergo several components of the
+compiler:
 
-## Breadth First!
+- Preprocessor: This is not included in this tutorial, and only covered here.
+  All the macros will be resolved and fed to the real steps of compilation.
+  Macros are those statements starts with `#` in C that allows you to manipulate
+  the program in a macro way.
+- Frontend: The programs are separated into a sequence of words discussed above
+  by a lexer. Then this sequence of words are fed to the parser,
+  and the parser will structure them into data structures in the memory.
+  The snippet below shows the data structure of representing the
+  return-0 example above. This data structure is called abstract syntax tree.
+  Then the frontend traverses this tree to check if the semantics make sens.
+
+````
+FuncDecl
+|->Name="main"
+|->Args=[]
+`->Body
+   `->RetStmt
+      `->Value=ConstInt: 0
+````
+
+- IR Generator: If the semantics make sense, the compiler then
+  traverses the data structure recursively, and
+  generate an intermediate representation (IR) of the program. IR
+  is nearer to hardware code, and it is easier to apply some machine-independent
+  optimizations. A good way to learn how a intermediate representation
+  works, is to learn by examples. You can write a equivalent C code, and use the
+  command in the comment to see the LLVM IR:
+
+````
+// $ clang main.c -c -S -emit-llvm
+int main() {
+  return 0;
+}
+````
+
+- Optimizer: The optimizer applies several optimizations on the IR.
+  TODO(@were): What kind of optimizations we want to cover here?
+
+- Code Generator: The code generator will translate the IR into target machine
+  assembly code. The key steps in this component are instruction select and
+  register allocation. TODO(@were): Actually this is also my first time to
+  write a compiler for a stack machine, and WebAssembly actually assumes
+  infinite registers. I am not sure how to demonstrate the effects of
+  register allocation.
+
+## Depth First!
+
+During my undergrad, I implemented the compiler in a breadth first style ---
+finishing all the features of each component and go to next stage.
+The advantage of doing this is that each stage is highly decoupled, so
+you can just focus on what you do each.
+
+However, this approach is impractical --- it is hard to write hundreds lines
+of code and test them at once, and actually when you work, you need to
+incrementally modify the project and embrace the ugly legacy. Therefore,
+I decide to make this project depth first. We first write a very set of
+functions, and incrementally work towards the universal set of the features.
 
