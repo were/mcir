@@ -1,0 +1,6 @@
+func main() -> void {
+  let int a = 5;
+  let int b = 5;
+  let int c = a + b;
+  return;
+}

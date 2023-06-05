@@ -1,0 +1,10 @@
+class A {
+  func foo() -> void {
+    return;
+  }
+}
+
+func main() -> void {
+  let A a;
+  a.foo();
+}
