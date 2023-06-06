@@ -72,8 +72,8 @@ Declaring a varialbe is just as simple as `let {type} {id} [= {initializer}];`,
 and the initializer is optional. The `id` of a variable should not start with a
 number, and it can be composed by a combination of numbers, letters, and underscore.
 To keep the syntax simple, we do not support declaring multiple variables separated by
-commas (`,`). The `let` keyword is also to keep the parser look ahead simple. The
-terminology will be explained later.
+commas (`,`). The `let` keyword is also to keep the "parser look ahead" (will be explained later)
+simple.
 
 ### Builtin Types
 These following types are builtin types:
@@ -100,7 +100,7 @@ does not matter that much.
 
 ### Classes
 
-We also allow users to define their classes and classes can have their member functions.
+We also allow users to define their classes and classes can have their member functions/methods.
 Listing below shows an example of defining a class.
 The class name has the same requirement as the variable id.
 Unlike conventional C, a class can only be a pointer to an instance.
@@ -175,29 +175,29 @@ A[] a = new A[128];
 
 ### Expressions
 
-1. Arithmetic Opertions: `+, -, *, /`
+1. Arithmetic Opertions: `+, -, *, /`, both side should have the same type, and no implicit cast supported.
 2. Bitwise Opertions: `|,&,^,~`
-3. Logic Operations: `&&, ||, !`
-4. Access Attributes: \texttt{.}
+3. Logic Operations: `&&, ||, !`, both operands should be boolean.
+4. Access Attributes: `.`
 5. Pranthesis: `()`
 6. Brackets: `[]`
 7. Negative: `-`
-8. Comparison: `==, >, <`
-9. Assignment: `=`
+8. Comparison: `==, >, <`, returns a boolean expression.
+9. Cast: `{expr} as {type}` e.g. `a as int`. TODO(@were): Assign a priority to this.
+10. Assignment: `=`
     - For simplicity, unlike C, assignment has no return value.
       Therefore, no `a=b=0` allowed.
-    - For simplicity, no in-place update (`+=`) supported.
+    - For simplicity, no in-place update (e.g. `+=`) supported.
 
 The priority of these operations are the same as C.
 
 ### Statements
 
 Every statement can be a declaration, an assignment,
-a conditional statement, for-loop,
-while-loop, or a compound statement.
+a conditional statement, for-loop, while-loop, or a compound statement.
 
 ````
-if (a > b) {
+if (bool-expr) {
   // do a
 } else {
   // do b
@@ -211,7 +211,7 @@ for i in 0..n {
 ````
 
 ````
-while (cond) {
+while (bool-expr) {
   // do something
 }
 ````
