@@ -10,14 +10,14 @@ process.stdin.on('data', function (data) {
   input_buffer.push(data)
 })
 
-function print_int(x) {
+function __print_int__(x) {
   process.stdout.write(x.toString())
 }
 
 memory = null
 i8view = null
 
-function print_str(offset, len) {
+function __print_str__(offset, len) {
   for (i = 0; i < len; ++i) {
     process.stdout.write(String.fromCharCode(i8view[offset + i]))
   }
@@ -28,8 +28,8 @@ __stack_pointer = new WebAssembly.Global({value: "i32", mutable: true}, 0)
 
 imports = {
   env: {
-    print_int: print_int,
-    print_str: print_str,
+    __print_int__: __print_int__,
+    __print_str__: __print_str__,
     __linear_memory: __linear_memory,
     __stack_pointer: __stack_pointer,
   }
