@@ -1,6 +1,7 @@
 func main() -> void {
-  let int a = 5;
-  let int b = 5;
+  let int a = 3;
+  let int b = 4;
   let int c = a + b;
+  println(toString(c));
   return;
 }
