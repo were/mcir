@@ -118,12 +118,25 @@ int main() {
 
 During my undergrad, I implemented the compiler in a breadth first style ---
 finishing all the features of each component and go to next stage.
+For example, after formalizing the whole grammar,
+I wrote a universal parser to support all the frontend features.
 The advantage of doing this is that each stage is highly decoupled, so
 you can just focus on what you do each.
 
-However, this approach is impractical --- it is hard to write hundreds lines
-of code and test them at once, and actually when you work, you need to
-incrementally modify the project and embrace the ugly legacy. Therefore,
-I decide to make this project depth first. We first write a very set of
-functions, and incrementally work towards the universal set of the features.
+The tradeoff is that inside each module, each functionality is highly
+coupled with each other, and the whole module is too large.
+It is hard to write hundreds lines of code and test them at once,
+Moreover,  actually when you work on a real project (not a toy like this),
+you need to incrementally modify the project and embrace the ugly legacy.
+Therefore, I decide to make this project depth first. We first write a set of
+very simple functions, and incrementally work towards the universal set of the features.
+
+1. Return 0
+    1. Parse a function without arguments.
+    2. Parse "return statement".
+    3. Emit intermediate representation.
+2. Hello world!
+    1. Figure out how print to screen syscall is supported.
+    2. Extend 1.1 to parsing arguments and parameters.
+    3. Handle string literal and convert them in classes.
 

@@ -78,22 +78,22 @@ simple.
 ### Builtin Types
 These following types are builtin types:
 1. `void`: Cannot be an variable, can only be the return type of a function.
-2. `int`: A 32-bit signed integer. Constant integers can range from $[-2^{31},2^{31}-1]$.
-3. `char`: A 8-bit char. To keep it simple, all the char surrounded by a pair of
+2. `i32`: A 32-bit signed integer. Constant integers can range from $[-2^{31},2^{31}-1]$.
+3. `i8`: An 8-bit char. To keep it simple, all the char surrounded by a pair of
     \texttt{'}s should be printable.
     Only 4 backslash escape characters are supported, `\'`, `\"`,
     `\\`, and `\n`.
 4. `bool`: A boolean value, whose constants can be either `true`,or `false`.
-    Unlike C, there is no implicit conversion to bool for all the expressions (`int`, `char`, or `classes`).
+    Unlike C, there is no implicit conversion to bool for all the expressions (`i32`, `i8`, or `classes`).
 5. `string`: Literals surrounded by \texttt{"} are constants of strings. Just like
-    `char` each char of a string should either be printable or supported escape characters.
+    `i8` each char of a string should either be printable or supported escape characters.
     Strings are immutable.
     The string data type with three builtin members:
-      - `int length()` return the length of this string.
-      - `int parseInt()` convert the string into an integer.
-      - `char at(int pos)` starting with 0, return the character at the given position.
+      - `i32 length()` return the length of this string.
+      - `i32 parseInt()` convert the string into an integer.
+      - `i8 at(int pos)` starting with 0, return the character at the given position.
 
-Note `int`, `char`, and `bool` are plain old data (POD), so they have instances.
+Note `int`, `i8`, and `bool` are plain old data (POD), so they have instances.
 `string` is non-modifiable, so its behavior of being a POD or a class,
 does not matter that much.
 
@@ -110,21 +110,20 @@ from `0` to `null`.
 
 ````
 class A {
-  print() -> void {
+  func print() -> void {
     // This is OK, even though `value` defined later than `print()`
     println(toString(this.value));
   }
-  int value;
+  i32 value;
 };
 
-int main() {
+func main() -> void {
   A a = new A;
   a.value = 5;
   a.print(); // prints 5
   A b = a;
   b.a = 1;
   a.print(); // prints 1
-  return 0;
 }
 ````
 
@@ -136,7 +135,7 @@ the scope of a class. However, it makes no sense to use a global
 variable before its definition.
 
 ````
-void foo() {
+func foo() -> void {
   // Too early to use `a`!
   println(a);
 }
@@ -151,14 +150,14 @@ Array allocation is very similar in what we have in Java.
 Arrays have one builtin method `size()` for the size of the array.
 
 ````
-int[] a = new int[128];
+i32[] a = new int[128];
 ````
 
 We support two types of jagged array allocation.
 
 ````
-int[][] a = new int[128][128];
-int[][] b = new int[128][];
+i32[][] a = new int[128][128];
+i32[][] b = new int[128][];
 for i in 0..128 {
   b[i] = new int[i + 1];
 }
@@ -222,10 +221,10 @@ we cannot define variables with same id to hide instances in outer scopes,
 as it is shown in Listing below.
 
 ````
-int a;
+i32 a;
 {
-  int a; // This is not allowed!
-  int b; // b is dedicated to this scope.
+  i32 a; // This is not allowed!
+  i32 b; // b is dedicated to this scope.
 }
 // We cannot use b here.
 ````
@@ -235,11 +234,11 @@ int a;
 #### Builtins
 
 Several builtin functions are supported for I/O.
-1. `void print(string str):` Write the given string to stdout.
-2. `void println(string str):` Write the given string to stdout and append a newline.
-3. `int getInt():` Get an integer from stdin.
-4. `string getLine():` Get a line of string from stdin.
-5. `string toString(i):` Convert the given int to string.
+1. `func print(string str) -> void`: Write the given string to stdout.
+2. `func println(string str) -> void`: Write the given string to stdout and append a newline.
+3. `func getInt() -> i32`: Get an integer from stdin.
+4. `func getLine() -> string`: Get a line of string from stdin.
+5. `func toString(i32 i) -> string`: Convert the given int to string.
 
 #### Function Definition
 
