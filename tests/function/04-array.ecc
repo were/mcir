@@ -1,4 +1,4 @@
 func main() -> int {
-  let int[] a;
+  let i32[] a;
   return 0;
 }

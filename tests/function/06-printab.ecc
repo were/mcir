@@ -2,5 +2,6 @@ func main() -> void {
   let i32 a = 3;
   let i32 b = 4;
   let i32 c = a + b;
+  println(toString(c));
   return;
 }

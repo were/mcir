@@ -6,6 +6,6 @@ class B {
   A a;
 }
 
-func main() -> int {
+func main() -> i32 {
   return 0;
 }

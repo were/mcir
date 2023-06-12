@@ -1,0 +1,9 @@
+func main() -> void {
+  let i32 n = 100;
+  let i32 sum = 0;
+  for i in 0..n {
+    sum = sum + i;
+  }
+  println(toString(sum));
+  return;
+}
