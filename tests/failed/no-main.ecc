@@ -1,0 +1,7 @@
+// Error: No main function
+
+func f() -> i32 {
+  println("No main function.");
+  return 0;
+}
+

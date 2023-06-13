@@ -1,0 +1,19 @@
+// Return value mismatch.
+
+class A {
+
+  i32 a;
+
+  func f(i32 b) -> i32 {
+    self.a = b;
+    return b;
+  }
+
+}
+
+func main() -> void {
+  let i32 c = 10;
+  let A a;
+  return a.f(c);
+}
+
