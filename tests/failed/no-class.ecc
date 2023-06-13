@@ -1,0 +1,7 @@
+func f(A x) -> A{
+  return A.this;
+}
+
+func main() -> void {
+  return;
+}

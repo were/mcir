@@ -1,0 +1,10 @@
+func main() -> void {
+  let i32 a;
+  {
+    let string b;
+    b = "wow";
+  }
+  a = "f";
+  return;
+}
+
