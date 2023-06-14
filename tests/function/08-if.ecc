@@ -1,0 +1,12 @@
+func main() -> void {
+  let i32 a = 7;
+  let i32 b = 5;
+  let i32 c = 0;
+  if a < b {
+    c = a;
+  } else {
+    c = b;
+  }
+  println(toString(c));
+  return;
+}

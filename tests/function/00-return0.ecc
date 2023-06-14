@@ -1,6 +1,6 @@
 // Test if we can skip comments
 
-func main() -> int {
+func main() -> i32 {
   return 0;
 }
 
