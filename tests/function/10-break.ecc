@@ -1,0 +1,11 @@
+func main() -> void {
+  let i32 sum = 0;
+  for i in 0..1000 {
+    if i > 100 {
+      break;
+    }
+    sum = sum + i;
+  }
+  println(toString(sum));
+  return;
+}
