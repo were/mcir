@@ -9,3 +9,7 @@ func main() -> void {
   println(toString(sum));
   return;
 }
+
+// [Metadata.stdout]
+// 5050
+// [Metadata.end]

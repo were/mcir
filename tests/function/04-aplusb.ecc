@@ -4,3 +4,6 @@ func main() -> void {
   let i32 c = a + b;
   return;
 }
+
+// [Metadata.stdout]
+// [Metadata.end]

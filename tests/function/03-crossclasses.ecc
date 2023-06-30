@@ -9,3 +9,6 @@ class B {
 func main() -> i32 {
   return 0;
 }
+
+// [Metadata.stdout]
+// [Metadata.end]

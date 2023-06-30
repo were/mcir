@@ -8,3 +8,7 @@ func main() -> void {
   println(toString(cnt));
   return;
 }
+
+// [Metadata.stdout]
+// 3
+// [Metadata.end]

@@ -1,4 +1,7 @@
-func main() -> int {
+func main() -> i32 {
   let i32[] a;
   return 0;
 }
+
+// [Metadata.stdout]
+// [Metadata.end]

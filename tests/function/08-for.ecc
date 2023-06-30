@@ -7,3 +7,7 @@ func main() -> void {
   println(toString(sum));
   return;
 }
+
+// [Metadata.stdout]
+// 4950
+// [Metadata.end]

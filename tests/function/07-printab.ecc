@@ -5,3 +5,7 @@ func main() -> void {
   println(toString(c));
   return;
 }
+
+// [Metadata.stdout]
+// 7
+// [Metadata.end]

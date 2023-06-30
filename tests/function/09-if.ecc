@@ -10,3 +10,7 @@ func main() -> void {
   println(toString(c));
   return;
 }
+
+// [Metadata.stdout]
+// 5
+// [Metadata.end]
