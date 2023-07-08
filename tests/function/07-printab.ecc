@@ -1,15 +1,10 @@
 func main() -> void {
-  let i32 a = nextInt();
-  let i32 b = nextInt();
+  let i32 a = 12345;
+  let i32 b = 54321;
   let i32 c = a + b;
   println(toString(c));
   return;
 }
-
-// [Metadata.stdin]
-// 12345
-// 54321
-// [Metadata.end]
 
 // [Metadata.stdout]
 // 66666
