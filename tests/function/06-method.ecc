@@ -5,7 +5,7 @@ class A {
 }
 
 func main() -> void {
-  let A a;
+  let A a = new A;
   a.foo();
   return;
 }

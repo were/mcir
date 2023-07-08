@@ -1,0 +1,8 @@
+func main() -> void {
+  println(toString(0));
+  return;
+}
+
+// [Metadata.stdout]
+// 0
+// [Metadata.end]
