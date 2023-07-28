@@ -2,7 +2,8 @@ func main() -> void {
   let i32 a = 12345;
   let i32 b = 54321;
   let i32 c = a + b;
-  println(toString(c));
+  __print_int__(c);
+  print("\n");
   return;
 }
 

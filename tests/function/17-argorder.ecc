@@ -1,0 +1,14 @@
+func foo(i32 a, i32 b) -> void {
+  println(toString(a));
+  println(toString(b));
+}
+
+func main() -> void {
+  foo(10, 100);
+  return;
+}
+
+// [Metadata.stdout]
+// 10
+// 100
+// [Metadata.end]

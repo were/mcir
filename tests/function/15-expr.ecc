@@ -1,0 +1,17 @@
+func main() -> void {
+  let i32 a = nextInt();
+  let i32 b = nextInt();
+  let i32 c = nextInt();
+  let i32 d = nextInt();
+  let i32 e = (a * b) + (c * d) - a + a;
+  println(toString(e));
+  return;
+}
+
+// [Metadata.stdin]
+// 1 2 3 4
+// [Metadata.end]
+// [Metadata.stdout]
+// 14
+// [Metadata.end]
+
