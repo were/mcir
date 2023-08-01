@@ -27,8 +27,6 @@ func pd(i32 h, i32 x) -> i32 {
 }
 
 func show(i32 []a, i32 now) -> void {
-  print(toString(now));
-  print(": ");
   for i in 0..now {
     print(toString(a[i]));
     print(" ");
@@ -104,7 +102,6 @@ func main() -> i32 {
   let i32 R = 0;
   let i32 seed = 1;
   let i32 count = 0;
-  seed = random(seed);
   for T in 0..100 {
     let i32 temp = 0;
     let i32 n = 5050;
@@ -118,6 +115,7 @@ func main() -> i32 {
       return 1;
     }
     println("Let's start!");
+    seed = random(seed);
     seed = random(seed);
     now = seed % 10 + 1;
     println(toString(now));
@@ -146,17 +144,7 @@ func main() -> i32 {
   return 0;
 }
 
-// === comment ===
-// bulgarian-5110379024-wuhang.mx
-// === assert ===
-// output
-// === phase ===
-// optim pretest
-// === timeout ===
-// 4.0
-// === input ===
-// 
-// === output ===
+// [Metadata.stdout]
 // Let's start!
 // 5
 // 7 8 2 4 5029 
@@ -557,6 +545,4 @@ func main() -> i32 {
 // 2
 // 5 5045 
 // Total: 5046 step(s)
-// 
-// === is_public ===
-// True
+// [Metadata.end]
