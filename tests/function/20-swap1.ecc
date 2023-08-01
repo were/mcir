@@ -1,0 +1,38 @@
+func merge(i32 []a, i32 now) -> i32 {
+  for i in 0..now { 
+    if (a[i] == 0) {
+      for j in (i+1)..now {
+        if (a[j] != 0) {
+	  let i32 temp = a[i];
+	  a[i] = a[j];
+	  a[j] = temp;
+          break;
+        }
+      }
+    }
+  }
+  for i in 0..now {
+    if (a[i] == 0) {
+      return i;
+    }
+  }
+  return now;
+}
+
+func main() -> void {
+  let i32 n = 7;
+  let i32[] a = new i32[100];
+  // 7: 5 6 0 2 5027 4 6 
+  a[0] = 5;
+  a[1] = 6;
+  a[2] = 0;
+  a[3] = 2;
+  a[4] = 5027;
+  a[5] = 4;
+  a[6] = 6;
+  merge(a, n);
+  for i in 0..n {
+    println(toString(a[i]));
+  }
+  return;
+}

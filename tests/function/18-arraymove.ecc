@@ -1,0 +1,21 @@
+func main() -> i32 {
+  let i32[] a = new i32[128];
+  let i32[] b = new i32[128];
+  let i32 n = 128;
+  for i in 0..n {
+    a[i] = i;
+  }
+  for i in 0..n {
+    b[i] = a[i];
+  }
+  let i32 sum = 0;
+  for i in 0..n {
+    sum = sum + b[i] * a[i];
+  }
+  println(toString(sum));
+  return 0;
+}
+
+// [Metadata.stdout]
+// 690880
+// [Metadata.end]

@@ -1,6 +1,7 @@
 func foo(i32 a, i32 b) -> void {
   println(toString(a));
   println(toString(b));
+  return;
 }
 
 func main() -> void {
