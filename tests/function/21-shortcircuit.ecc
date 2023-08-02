@@ -1,0 +1,33 @@
+class A {
+  i32 a;
+}
+
+func main() -> void {
+  let i32 a = nextInt();
+  let i32 b = nextInt();
+  let A c;
+  if a != b && c.a == 1 {
+    let i32 d = a * b;
+    println(toString(d));
+  } else {
+    let i32 d = a + b;
+    println(toString(d));
+  }
+  if a != b || c.a == 1 {
+    let i32 d = a * b;
+    println(toString(d));
+  } else {
+    let i32 d = a + b;
+    println(toString(d));
+  }
+  return;
+}
+
+// [Metadata.stdin]
+// 10 20
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 30
+// 200
+// [Metadata.end]

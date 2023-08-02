@@ -1,0 +1,37 @@
+func cd(i32 d, string a, string b, string c, i32 sum) -> i32 {
+  if (d == 1) {
+    // print("move ");
+    // print(a);
+    // print(" --> ");
+    // println(c);
+    sum = sum + 1;
+  } else {
+    sum = cd(d - 1, a, c, b, sum);
+    // print("move ");
+    // print(a);
+    // print(" --> ");
+    // println(c);
+    sum = cd(d - 1, b, a, c, sum);
+    sum = sum + 1;
+  }
+    return sum;
+}
+
+func main() -> i32 {
+  let string a = "A";
+  let string b = "B";
+  let string c = "C";
+  let i32 d = nextInt();
+  let i32 sum = cd(d, a, b, c, 0);
+  println(toString(sum));
+  return 0;
+}
+
+
+// [Metadata.stdin]
+// 27
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 134217727
+// [Metadata.end]
