@@ -7,6 +7,7 @@ In this repo, I will build my own language targeting WebAssembly.
 
 - [Language Manual](./writeup/00-manual.md)
 - [Introduction](./writeup/01-intro.md)
+- [Parser](./writeup/02-parser.md)
 
 ## Reference Implementation
 
