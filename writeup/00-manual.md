@@ -43,7 +43,7 @@ learning the compiler principles.
 We assume:
 
 1. All the programs written in this language should **NOT exceed 1MB**.
-   Otherwise, the compiler is not guaranteed/required to output a correct result!
+   Otherwise, the compiler is not guaranteed/required to output a correct result.
 2. Only single program compilation is supported for now.
 
 ## Language Manual
@@ -147,13 +147,14 @@ TODO(@were): support destructor, inherence, virtual function, and interfacing.
 ### Arrays
 
 Array allocation is very similar in what we have in Java.
-Arrays have one builtin method `size()` for the size of the array.
+Arrays have one builtin method `length()` for the size of the array.
 
 ````
 i32[] a = new int[128];
+println(toString(a.length())); // outputs "128"
 ````
 
-We support two types of jagged array allocation.
+We support two types of nested array allocation.
 
 ````
 i32[][] a = new int[128][128];
@@ -175,8 +176,9 @@ A[] a = new A[128];
 ### Expressions
 
 1. Arithmetic Opertions: `+, -, *, /`, both side should have the same type, and no implicit cast supported.
-2. Bitwise Opertions: `|,&,^,~`
-3. Logic Operations: `&&, ||, !`, both operands should be boolean.
+2. Bitwise Opertions: `|,&,^,~`, both side should be i32.
+3. Logic Operations: `&&, ||, !`, both operands should be boolean, and short circuit evaluation
+   --- if the value of the expression is already determined, we no longer evaluate rest of it --- is supported.
 4. Access Attributes: `.`
 5. Pranthesis: `()`
 6. Brackets: `[]`
@@ -236,8 +238,8 @@ i32 a;
 Several builtin functions are supported for I/O.
 1. `func print(string str) -> void`: Write the given string to stdout.
 2. `func println(string str) -> void`: Write the given string to stdout and append a newline.
-3. `func getInt() -> i32`: Get an integer from stdin.
-4. `func getLine() -> string`: Get a line of string from stdin.
+3. `func nextInt() -> i32`: Get an integer from stdin.
+4. `func nextLine() -> string`: Get a line of string from stdin.
 5. `func toString(i32 i) -> string`: Convert the given int to string.
 
 #### Function Definition
@@ -247,7 +249,7 @@ within a function that captures all the values in that scope. If the return
 type is not void, the compiler should not pass the semantic check.
 
 ````
-func {func-id}({arg-list}) -> {return-type} {
+func {func-name}({arg-list}) -> {return-type} {
   // do something.
   // you can still define new functions here.
 }

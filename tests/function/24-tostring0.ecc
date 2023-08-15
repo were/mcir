@@ -1,0 +1,10 @@
+func main() -> void {
+  let string str = toString(100);
+  __print_int__(str.length());
+  println("");
+  return;
+}
+
+// [Metadata.stdout]
+// 3
+// [Metadata.end]

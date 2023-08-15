@@ -6,8 +6,7 @@ The purpose of the parser is to represent the program text
 in data structures that can be understood by computers.
 This is a recursive data structure called abstract syntax tree (AST).
 
-
-Consider this piece of program below:
+Consider a more complicated example. Say we have such a piece of program below:
 
 ````
 let i32 n = 128;
@@ -46,3 +45,8 @@ ForLoop
 	       `->RHS=Variable
 		      `->Name="i"
 ````
+
+To get such data structure representation, we need to first
+define the syntax/grammar of the program, and then write a
+program accepts this syntax rules.
+

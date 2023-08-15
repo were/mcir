@@ -1,0 +1,130 @@
+func check(i32[] assignment, i32[][] sat) -> i32 {
+  for i in 0..sat.length() {
+    let i32 succ = 0;
+    for j in 0..3 {
+      let i32 var = sat[i][j];
+      if(var > 0 && assignment[var] == 1) {
+        succ = 1;
+      }
+      if(var < 0 && assignment[-var] == 0) {
+        succ = 1;
+      }
+    }
+    if(succ == 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+func myprint(string x, i32 myHash) -> i32 {
+  let i32 res  = myHash;
+  for i in 0..x.length() {
+    res = res + x.at(i);
+  }
+  return res;
+}
+
+func payoff(i32[] a, i32[] b) -> i32 {
+  let i32 ret = 0;
+  for i in 0..3 {
+    if(a[i] != b[i]) {
+      ret = ret + 1;
+    }
+  }
+  return ret;
+}
+
+func print_cond(i32 dep, i32[] assignment, i32[] cond_ass, i32 myHash) -> i32 {
+  let i32 n = assignment.length() - 1;
+  if (dep == n) {
+    myHash = myprint("- ", myHash);
+    myHash = myprint(toString(payoff(cond_ass, assignment)), myHash);
+    myHash = myprint("*x", myHash);
+    let i32 i;
+    for i in 0..n {
+      if (i % 10 == 0) {
+        myHash = myprint(toString(cond_ass[i + 1]), myHash);
+      }
+    }
+    return myHash;
+  }
+  cond_ass[dep + 1] = 1;
+  myHash = print_cond(dep + 1, assignment, cond_ass, myHash);
+  cond_ass[dep + 1] = 0;
+  myHash = print_cond(dep + 1, assignment, cond_ass, myHash);
+  return myHash;
+}
+
+func dfs(i32 dep, i32[] assignment, i32[] cond_ass, i32[][] sat, i32 myHash) -> i32 {
+  let i32 n = assignment.length() - 1;
+  if(dep == n) {
+    if (check(assignment, sat) == 1) {
+      myHash = myprint("xz ", myHash);
+      myHash = print_cond(0, assignment, cond_ass, myHash);
+      myHash = myprint(" <= 0;\n", myHash);
+    }
+    return myHash;
+  }
+  assignment[dep + 1] = 1;
+  myHash = dfs(dep + 1, assignment, cond_ass, sat, myHash);
+  assignment[dep + 1] = 0;
+  myHash = dfs(dep + 1, assignment, cond_ass, sat, myHash);
+  return myHash;
+}
+
+func print_last_cond(i32 dep, i32[] assignment, i32 myHash) -> i32 {
+  let i32 n = assignment.length() - 1;
+  if(dep == n) {
+    myHash = myprint("x", myHash);
+    let i32 islast = 1;
+    for i in 0..(assignment.length() - 1) {
+      if(assignment[i + 1] == 1) {
+        islast = 0;
+      }
+      myHash = myprint(toString(assignment[i + 1]), myHash);
+    }
+    if (islast == 0) {
+      myHash = myprint(" + ", myHash);
+    } else {
+      myHash = myprint(" = 1;\n", myHash);
+    }
+    return myHash;
+  }
+  assignment[dep + 1] = 1;
+  myHash = print_last_cond(dep + 1, assignment, myHash);
+  assignment[dep + 1] = 0;
+  myHash = print_last_cond(dep + 1, assignment, myHash);
+  return myHash;
+}
+
+func main() -> i32 {
+  let i32 k = 5;
+  let i32 n = 2 * k + 1;
+  let i32 m = k;
+  let i32 last = 1;
+  let i32 myHash = 0;
+
+  myHash = myprint("max: xz;\n", myHash);
+
+  let i32[][] sat = new i32[m][];
+  for i in 0..m {
+    let i32[] clause = new i32[3];
+    clause[0] = last;
+    clause[1] = last + 1;
+    clause[2] = -(last + 2);
+    last = last + 2;
+    sat[i] = clause;
+  }
+
+  let i32[] assignment = new i32[n + 1];
+  let i32[] cond_ass = new i32[n + 1];
+  myHash = dfs(0, assignment, cond_ass, sat, myHash);
+  myHash = print_last_cond(0, assignment, myHash);
+  println(toString(myHash));
+  return 0;
+}
+
+// [Metadata.stdout]
+// 755895903
+// [Metadata.end]

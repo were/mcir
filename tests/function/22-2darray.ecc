@@ -6,7 +6,8 @@ func main() -> i32 {
   }
   for i in 0..128 {
     for j in 0..128 {
-      a[i][j] = i * 128 + j;
+      let i32 value = i * 128 + j;
+      a[i][j] = value;
     }
   }
   let i32 sum = 0;
@@ -20,4 +21,5 @@ func main() -> i32 {
 }
 
 // [Metadata.stdout]
+// 134209536
 // [Metadata.end]

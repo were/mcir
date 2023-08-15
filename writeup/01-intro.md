@@ -81,6 +81,10 @@ compiler:
   Then the frontend traverses this tree to check if the semantics make sens.
 
 ````
+func main() -> void {
+  return 0;
+}
+
 FuncDecl
 |->Name="main"
 |->Args=[]
@@ -99,13 +103,14 @@ FuncDecl
 
 ````
 // $ clang main.c -c -S -emit-llvm
+// $ ${EDITOR} main.ll
+
 int main() {
   return 0;
 }
 ````
 
-- Optimizer: The optimizer applies several optimizations on the IR.
-  TODO(@were): What kind of optimizations we want to cover here?
+- Optimizer: The optimizer applies several (mostly) machine-independent optimizations on the IR.
 
 - Code Generator: The code generator will translate the IR into target machine
   assembly code. The key steps in this component are instruction select and

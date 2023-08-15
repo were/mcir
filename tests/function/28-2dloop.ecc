@@ -1,0 +1,15 @@
+
+func main() -> i32 {
+  let i32 sum = 0;
+  for i in 0..128 {
+    for j in 0..128 {
+      sum = sum + (i * 128 + j);
+    }
+  }
+  println(toString(sum));
+  return 0;
+}
+
+// [Metadata.stdout]
+// 134209536
+// [Metadata.end]

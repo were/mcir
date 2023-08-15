@@ -14,7 +14,7 @@ func cd(i32 d, string a, string b, string c, i32 sum) -> i32 {
     sum = cd(d - 1, b, a, c, sum);
     sum = sum + 1;
   }
-    return sum;
+  return sum;
 }
 
 func main() -> i32 {

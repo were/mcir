@@ -1,0 +1,9 @@
+func main() -> void {
+  let string str = toString(100);
+  println(str);
+  return;
+}
+
+// [Metadata.stdout]
+// 100
+// [Metadata.end]

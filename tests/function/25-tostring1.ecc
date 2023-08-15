@@ -1,0 +1,16 @@
+func main() -> void {
+  let string str = toString(100);
+  __print_int__(str.at(0));
+  println("");
+  __print_int__(str.at(1));
+  println("");
+  __print_int__(str.at(2));
+  println("");
+  return;
+}
+
+// [Metadata.stdout]
+// 49
+// 48
+// 48
+// [Metadata.end]
