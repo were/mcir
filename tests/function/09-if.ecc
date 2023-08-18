@@ -7,7 +7,8 @@ func main() -> void {
   } else {
     c = b;
   }
-  println(toString(c));
+  __print_int__(c);
+  println("");
   return;
 }
 

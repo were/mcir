@@ -1,0 +1,52 @@
+func main() -> i32 {
+  let i32 n = nextInt();
+  let i32 ans = 0;
+  for a in 0..n {
+    for b in 0..n {
+      for c in 0..n {
+        for d in 0..n {
+          for e in 0..n {
+            for f in 0..n {
+              for g in 0..n {
+                let bool t1 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
+                let bool t2 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
+                let bool t3 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
+                let bool t4 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
+                let bool t5 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
+                let bool t6 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
+                if(t1) {
+                  ans = ans + 1;
+		}
+                if(t2) {
+                  ans = ans + 1;
+		}
+                if(t3) {
+                  ans = ans + 1;
+		}
+                if(t4) {
+                  ans = ans + 1;
+		}
+                if(t5) {
+                  ans = ans + 1;
+		}
+                if(t6) {
+                  ans = ans + 1;
+		}
+              }
+	    }
+	  }
+	}
+      }
+    }
+  }
+  println(toString(ans));
+  return 0;
+}
+
+// [Metadata.stdin]
+// 14
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 559355322
+// [Metadata.end]
