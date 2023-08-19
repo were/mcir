@@ -1,0 +1,45 @@
+//Target: use loops to calculate calculator of 6!
+//@author yixi
+
+
+func main() -> i32 {
+  let i32 N = 0;
+  let i32 h = 99;
+  let i32 i = 100;
+  let i32 j = 101;
+  let i32 k = 102;
+  let i32 total = 0;
+  N = nextInt();
+  for a in 1..(N+1) {
+  for b in 1..(N+1) {
+  for c in 1..(N+1) {
+  for d in 1..(N+1) {
+  for e in 1..(N+1) {
+  for f in 1..(N+1) {
+    if (a!=b && a!=c && a!=d && a!=e && a!=f && a!=h && a!=i && a!=j && a!=k &&
+        b!=c && b!=d && b!=e && b!=f && b!=h && b!=i && b!=j && b!=k &&
+        c!=d && c!=e && c!=f && c!=h && c!=i && c!=j && c!=k &&
+        d!=e && d!=f && d!=h && d!=i && d!=j && d!=k &&
+        e!=f && e!=h && e!=i && e!=j && e!=k &&
+        f!=h && f!=i && f!=j && f!=k &&
+	i!=j && h!=k) {
+      total = total + 1;
+    }
+  }
+  }
+  }
+  }
+  }
+  }
+  
+  println(toString(total));
+  return 0;
+}
+
+// [Metadata.stdin]
+// 17
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 8910720
+// [Metadata.end]
