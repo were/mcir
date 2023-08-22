@@ -1,0 +1,50 @@
+func foo(i32 a, i32 b, i32 c) -> i32 {
+  return (a + b + c) & ((1 << 30) - 1);
+}
+
+func main() -> i32 {
+  let i32 n = nextInt();
+  let i32[][] f = new i32[n][];
+  let i32[][] g = new i32[n][];
+  let i32[][] g_useless = new i32[n][];
+  for i in 0..n {
+    f[i] = new i32[n];
+    g[i] = new i32[n];
+    g_useless[i] = new i32[n];
+  }
+  for i in 0..n {
+    for j in 0..n {
+      f[i][j] = i + j;
+      g[i][j] = 0;
+    }
+  }
+  for i in 0..n {
+    for j in 0..n {
+      for k in 0..n {
+        if (j >= i) {
+          g[i][j] = foo(g[i][j], f[i][k], f[k][j]);
+          g_useless[i][j] = foo(g[i][j], f[i][k], f[k][j]);
+          g_useless[i][j] = foo(g[i][j], f[i][k], f[k][j]);
+          g_useless[i][j] = foo(g[i][j], f[i][k], f[k][j]);
+        }
+      }
+    }
+  }
+  let i32 sum = 0;
+  for i in 0..n {
+    for j in 0..n {
+      sum = (sum + g[i][j]) & ((1 << 30) - 1);
+    }
+  }
+  println(toString(sum));
+  return 0;
+}
+
+
+// [Metadata.stdin]
+// 700
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 655083248
+// [Metadata.end]
