@@ -1,6 +1,7 @@
 func check(i32[] assignment, i32[][] sat) -> i32 {
   for i in 0..sat.length() {
     let i32 succ = 0;
+
     for j in 0..3 {
       let i32 var = sat[i][j];
       if(var > 0 && assignment[var] == 1) {
@@ -10,6 +11,10 @@ func check(i32[] assignment, i32[][] sat) -> i32 {
         succ = 1;
       }
     }
+
+    // print("succ: ");
+    // println(toString(succ));
+
     if(succ == 0) {
       return 0;
     }
@@ -32,6 +37,8 @@ func payoff(i32[] a, i32[] b) -> i32 {
       ret = ret + 1;
     }
   }
+  // print("ret: ");
+  // println(toString(ret));
   return ret;
 }
 

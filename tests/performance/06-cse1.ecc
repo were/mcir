@@ -14,22 +14,22 @@ func main() -> i32 {
                 let bool t4 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
                 let bool t5 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
                 let bool t6 = (((a == b) && c > 0) || (d == e && f > 0 && g > 0) || (a == g) || (d > 0 && f > 0));
-                if(t1) {
+                if (t1) {
                   ans = ans + 1;
                 }
-                if(t2) {
+                if (t2) {
                   ans = ans + 1;
                 }
-                if(t3) {
+                if (t3) {
                   ans = ans + 1;
                 }
-                if(t4) {
+                if (t4) {
                   ans = ans + 1;
                 }
-                if(t5) {
+                if (t5) {
                   ans = ans + 1;
                 }
-                if(t6) {
+                if (t6) {
                   ans = ans + 1;
                 }
               }

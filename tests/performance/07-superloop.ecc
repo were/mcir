@@ -31,7 +31,6 @@ func main() -> i32 {
   }
   }
   }
-  
   println(toString(total));
   return 0;
 }

@@ -1,0 +1,24 @@
+func check(i32 []a, i32 []b) -> i32 {
+  let i32 res = 0;
+  for i in 0..3 {
+    if a[i] > 0 && a[i] != b[i] {
+    // if a[i] != b[i] {
+      res = res + 1;
+    }
+  }
+  return res;
+}
+
+func main() -> i32 {
+  let i32[] a = new i32[3];
+  let i32[] b = new i32[3];
+  a[0] = 1; a[1] = 2; a[2] = 3;
+  b[0] = 3; b[1] = 2; b[2] = 1;
+  let i32 res = check(a, b);
+  println(toString(res));
+  return 0;
+}
+
+// [Metadata.stdout]
+// 2
+// [Metadata.end]
