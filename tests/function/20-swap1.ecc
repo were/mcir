@@ -3,9 +3,9 @@ func merge(i32 []a, i32 now) -> i32 {
     if (a[i] == 0) {
       for j in (i+1)..now {
         if (a[j] != 0) {
-	  let i32 temp = a[i];
-	  a[i] = a[j];
-	  a[j] = temp;
+          let i32 temp = a[i];
+          a[i] = a[j];
+          a[j] = temp;
           break;
         }
       }
@@ -27,13 +27,10 @@ func main() -> void {
   }
   merge(a, n);
   for i in 0..n {
-    let string str = toString(a[i]);
-    // for j in 0..str.length() {
-    //   __print_int__(str.at(j));
-    //   print(" ");
-    // }
-    // println("");
-    println(str);
+    // let string str = toString(a[i]);
+    // println(str);
+    __print_int__(a[i]);
+    print("\n");
   }
   return;
 }

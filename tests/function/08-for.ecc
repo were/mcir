@@ -4,7 +4,6 @@ func main() -> void {
   for i in 0..n {
     sum = sum + i;
   }
-  // __print_int__(sum);
   println(toString(sum));
   return;
 }

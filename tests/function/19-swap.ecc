@@ -3,10 +3,10 @@ func sort(i32[] a, i32 n) -> void {
   for i in 0..n {
     for j in (i+1)..n {
       if a[j] > a[i] {
-	// swap a[j], a[i]
-	temp = a[j];
-	a[j] = a[i];
-	a[i] = temp;
+        // swap a[j], a[i]
+        temp = a[j];
+        a[j] = a[i];
+        a[i] = temp;
       }
     }
     show(a, n);
@@ -15,9 +15,9 @@ func sort(i32[] a, i32 n) -> void {
 }
 
 func show(i32[] a, i32 n) -> void {
-  for i in 0..32 {
+  for i in 0..n {
     print(toString(a[i]));
-    if i != 31 {
+    if i != (n - 1) {
       print(" ");
     } else {
       println("");
