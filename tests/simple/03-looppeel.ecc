@@ -1,0 +1,39 @@
+func main() -> i32 {
+  let i32[][] a = new i32[100][];
+  let i32 i;
+  let i32 j;
+  for i in 0..100 {
+    a[i] = new i32[100];
+  }
+  let i32 sum = 0;
+  // for i in 0..100 {
+  //   for j in 0..100 {
+  //     a[i][j] = 0;
+  //   }
+  // }
+  let i32 quotient;
+  let i32 remainder;
+  for i in 0..100 {
+    if (i > 20 && i < 80) {
+      for j in 0..100 {
+        if (j > 5 || i < 90) {
+          quotient = j * 4 / 100;
+          remainder = j * 4 % 100;
+          a[i + quotient][remainder] = j + (100 - 1 + 1 - 1 + 1) / 2;
+        }
+      }
+    }
+  }
+
+  for i in 0..100 {
+    for j in 0..100 {
+      sum = sum + a[i][j];
+    }
+  }
+  println(toString(sum));
+  return 0;
+}
+
+// [Metadata.stdout]
+// 99850
+// [Metadata.end]

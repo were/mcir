@@ -1,0 +1,28 @@
+class A {
+  i32 a;
+  B b;
+}
+
+class B {
+  i32 x;
+  i32 y;
+}
+
+func main() -> i32 {
+  let A a = new A;
+  let B b = new B;
+  a.a = 10;
+  a.b = b;
+  b.x = 128;
+  b.y = 256;
+  __print_int__(a.b.x);
+  println("");
+  __print_int__(a.b.y);
+  println("");
+  return 0;
+}
+
+// [Metadata.stdout]
+// 128
+// 256
+// [Metadata.end]

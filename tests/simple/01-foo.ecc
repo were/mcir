@@ -1,0 +1,24 @@
+func foo(i32 d, i32 x, i32 y) -> void {
+  println(toString(d*1000 + x*10 + y));
+  if d == 1 {
+    return;
+  }
+  let i32 t = x;
+  x = y;
+  y = t;
+  foo(1, x, y);
+  println(toString(d*1000 + x*10 + y));
+  return;
+}
+
+func main() -> i32 {
+  foo(7, 5, 3);
+  return 0;
+}
+
+// [Metadata.stdout]
+// 7053
+// 1035
+// 7035
+// [Metadata.end]
+

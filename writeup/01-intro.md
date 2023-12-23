@@ -1,8 +1,10 @@
 # Introduction
 
 In the last section, the language manual is specified.
-Still, it is a big engineering work to accomplish.
-Therefore, let's break it down to pieces.
+Still, there is intensive engineering work to translate
+the language into executable binaries, which can hardly
+be done immediately.
+To gently achieve this goal, let's break it down to pieces.
 
 ## What is a programming language?
 

@@ -1,0 +1,54 @@
+func cost_a_lot_of_time() -> void {
+    let i32 a = 3100;
+    let i32 b = 0;
+    let i32 c = 1;
+    for b in 0..100000000 {
+        c = c * 2 - c;
+    }
+    println(toString(a));
+    return;
+}
+
+
+func foo(i32 d, i32 x, i32 y) -> void {
+    println(toString(d * 1000 + x * 10 + y));
+    if d == 1 {
+        return;
+    }
+    let i32 t = x; 
+    x = y; 
+    y = t;
+    foo(1, x, y);
+    println(toString(d * 1000 + x * 10 + y));
+    return;
+}
+
+
+func main() -> i32 {
+    let i32 a = 3100;
+    let i32 b = 0;
+    let i32 c = 1;
+    for b in 0..100000000 {
+        c = c * 2 - c;
+    }
+    println(toString(a));
+
+    cost_a_lot_of_time();
+
+    foo(7, 5, 3);
+
+    let i32[] aa;
+    let i32[] bb = new i32[10];
+    let i32[][] cc = new i32[2][];
+
+    return 0;
+}
+
+// [Metadata.stdout]
+// 3100
+// 3100
+// 7053
+// 1035
+// 7035
+// [Metadata.end]
+

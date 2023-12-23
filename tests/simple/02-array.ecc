@@ -1,0 +1,30 @@
+func main() -> i32 {
+  let i32[] a = new i32[4];
+  let i32[] b = new i32[a.length()];
+  for i in 0..a.length() {
+    a[i] = 0;
+    b[i] = nextInt();
+  }
+  for i in 0..a.length() {
+    print(toString(a[i]));
+  }
+  println("");
+  a = b;
+  for i in 0..a.length() {
+    print(toString(a[i]));
+  }
+  println("");
+  return 0;
+}
+
+// [Metadata.stdin]
+// 1
+// 2
+// 3
+// 4
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 0000
+// 1234
+// [Metadata.end]

@@ -22,7 +22,7 @@ func main() -> i32 {
         d!=e && d!=f && d!=h && d!=i && d!=j && d!=k &&
         e!=f && e!=h && e!=i && e!=j && e!=k &&
         f!=h && f!=i && f!=j && f!=k &&
-	i!=j && h!=k) {
+        i!=j && h!=k) {
       total = total + 1;
     }
   }

@@ -1,0 +1,76 @@
+// Acknowledge: ACM Honored Class Compiler Class 2017 provided this test case.
+// Acknowledge: ChatGPT4 ports this to my language automatically and correctly!
+
+class older {
+    i32 age;
+
+    func solveAge() -> void {
+        let i32 i;
+        let i32 j;
+        let i32 k;
+        for i in 1..100 {
+            for j in i + 1..100 {
+                for k in j + 1..100 {
+                    if ((i - i + i + j - j + j + k - k + k) * (100 * i + 10 * j + k) % 1926 == 0) {
+                        self.age = (i - i + i + j - j + j + k - k + k) * (100 * i + 10 * j + k);
+                    }
+                }
+            }
+        }
+        return;
+    }
+
+}
+
+func main() -> void {
+    let older mrJiang = new older;
+    mrJiang.solveAge();
+    if (mrJiang.age > 10000) {
+        println("eternal!");
+    }
+    return;
+}
+
+// [Metadata.stdin]
+// [Metadata.end]
+
+// [Metadata.stdout]
+// eternal!
+// [Metadata.end]
+
+
+// class older{
+// 	int age;
+// 	void solveAge(){
+// 		int i;
+// 		int j;
+// 		int k;
+// 		for(i = 1; i < 100; i++)
+// 			for(j = i + 1; j < 100; j++)
+// 				for(k = j + 1; k < 100; k++)
+// 					if((i - i + i + j - j + j + k - k + k) * (100 * i + 10 * j + k) % 1926 == 0) age = (i - i + i + j - j + j + k - k + k) * (100 * i + 10 * j + k);
+// 	}
+// }
+// int main(){
+// 	older mrJiang = new older;
+// 	mrJiang.solveAge();
+// 	if(mrJiang.age > 10000)println("eternal!");
+//     return 0;
+// }
+// 
+// /*!! metadata:
+// === comment ===
+// life-515030910638-yehaoran.txt
+// === input ===
+// === assert ===
+// output
+// === timeout ===
+// 1.0
+// === output ===
+// eternal!
+// === phase ===
+// optim extended
+// === is_public ===
+// True
+// 
+// !!*/

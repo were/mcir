@@ -1,0 +1,375 @@
+// Acknowledge: ACM Honored Class Compiler Class 2017 provided this test case.
+// Acknowledge: ChatGPT4 ports this to my language automatically and correctly!
+
+class node {
+    i32 l;
+    i32 r;
+    i32 mx;
+    i32 sum;
+}
+
+func get_smaller(i32 x) -> i32 {
+    let i32 sum = 1;
+    while x != 0 {
+        sum = sum * (x % 10 + 1);
+        x = x / 10;
+    }
+    return sum - 1;
+}
+
+func update(i32 x, node[] tree) -> void {
+    tree[x].sum = tree[x * 2].sum + tree[x * 2 + 1].sum;
+    tree[x].mx = tree[x * 2].mx | tree[x * 2 + 1].mx;
+    return;
+}
+
+func build(i32 x, i32 l, i32 r, node[] tree, i32[] a) -> void {
+    tree[x].l = l;
+    tree[x].r = r;
+    if l == r {
+        tree[x].sum = a[l];
+        if a[l] == get_smaller(a[l]) {
+            tree[x].mx = 0;
+        } else {
+            tree[x].mx = 1;
+        }
+        return;
+    }
+    let i32 mid = (l + r) / 2;
+    build(x * 2, l, mid, tree, a);
+    build(x * 2 + 1, mid + 1, r, tree, a);
+    update(x, tree);
+    return;
+}
+
+func shrink(i32 x, node[] tree, i32[] a) -> void {
+    if tree[x].l == tree[x].r {
+        let i32 tmp = a[tree[x].l];
+        let i32 smaller = get_smaller(a[tree[x].l]);
+        tree[x].sum = smaller;
+        a[tree[x].l] = smaller;
+        if tmp == tree[x].sum {
+            tree[x].mx = 0;
+        } else {
+            tree[x].mx = 1;
+        }
+        return;
+    }
+    if tree[x * 2].mx != 0 {
+        shrink(x * 2, tree, a);
+    }
+    if tree[x * 2 + 1].mx != 0 {
+        shrink(x * 2 + 1, tree, a);
+    }
+    update(x, tree);
+    return;
+}
+
+func change(i32 x, i32 l, i32 r, node[] tree, i32[] a) -> void {
+    if tree[x].mx == 0 {
+        return;
+    }
+    if tree[x].l == l && tree[x].r == r {
+        shrink(x, tree, a);
+        return;
+    }
+    let i32 mid = (tree[x].l + tree[x].r) / 2;
+    if r <= mid {
+        change(x * 2, l, r, tree, a);
+    } else {
+      if l > mid {
+          change(x * 2 + 1, l, r, tree, a);
+      } else {
+          change(x * 2, l, mid, tree, a);
+          change(x * 2 + 1, mid + 1, r, tree, a);
+      }
+    }
+    update(x, tree);
+    return;
+}
+
+func ask(i32 x, i32 l, i32 r, node[] tree) -> i32 {
+    if tree[x].l == l && tree[x].r == r {
+        return tree[x].sum;
+    }
+    let i32 mid = (tree[x].l + tree[x].r) / 2;
+    if r <= mid {
+        return ask(x * 2, l, r, tree);
+    }
+    if l > mid {
+        return ask(x * 2 + 1, l, r, tree);
+    }
+    return ask(x * 2, l, mid, tree) + ask(x * 2 + 1, mid + 1, r, tree);
+}
+
+func min(i32 a, i32 b) -> i32 {
+    if a < b {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+func max(i32 a, i32 b) -> i32 {
+    if a > b {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+func main() -> i32 {
+    let i32 n;
+    let i32[] a;
+    let node[] tree = new node[4000005];
+    n = nextInt();
+    a = new i32[n + 1];
+    for i in 1..(n + 1) {
+        a[i] = 13131;
+    }
+    println("building.");
+    build(1, 1, n, tree, a);
+    println("build done.");
+    // let i32 q;
+    // q = nextInt();
+    // while q != 0 {
+    //     q = q - 1;
+    //     let i32 kind;
+    //     kind = q % 2;
+    //     if kind == 0 {
+    //         change(1, (q % n) + 1, (q % n) + 1, tree, a);
+    //     } else {
+    //       if kind == 1 {
+    //             let i32 x = ask(1, min((q + 10) % n + 1, (q + 20) % n + 1), max((q + 10) % n + 1, (q + 20) % n + 1), tree);
+    //             if q % 800000 == 1 {
+    //                 println(toString(x));
+    //             }
+    //         }
+    //     }
+    // }
+    return 0;
+}
+
+// [Metadata.stdin]
+// 1000000
+// 8000000
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 79421
+// 79421
+// 79421
+// 79421
+// 79421
+// 79021
+// 79021
+// 79021
+// 79021
+// 79021
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// [Metadata.end]
+
+
+// Original Code:
+
+// class node {
+//     int l, r, mx;
+//     int sum;
+// } tree[4000005];
+//  
+// int n;
+// int q;
+// int a[1000001];
+//  
+// int get_smaller(int x) {
+//     int sum = 1;
+//     while (x != 0) {
+//         sum *= x % 10 + 1;
+//         x /= 10;
+//     }
+//     return sum - 1;
+// }
+//  
+// void update(int x) {
+//     tree[x].sum = tree[x * 2].sum + tree[x * 2 + 1].sum;
+//     tree[x].mx = (tree[x * 2].mx | tree[x * 2 + 1].mx);
+// }
+//  
+// void build(int x, int l, int r) {
+//     tree[x].l = l;
+//     tree[x].r = r;
+//     if (l == r) {
+//         tree[x].sum = a[l];
+//         if (a[l] == get_smaller(a[l])) tree[x].mx = 0;
+//         else tree[x].mx = 1;
+//         return;
+//     }
+//     int mid = l + r >> 1;
+//     build(x * 2, l, mid);
+//     build(x * 2 + 1, mid + 1, r);
+//     update(x);
+// }
+//  
+// void shrink(int x) {
+//     if (tree[x].l == tree[x].r) {
+//         int tmp = a[tree[x].l];
+//         tree[x].sum = a[tree[x].l] = get_smaller(a[tree[x].l]);
+//         if (tmp == tree[x].sum) 
+//             tree[x].mx = 0;
+//         else 
+//             tree[x].mx = 1;
+//         return;
+//     }
+//     if (tree[x * 2].mx) shrink(x * 2);
+//     if (tree[x * 2 + 1].mx) shrink(x * 2 + 1);
+//     update(x);
+// }
+//  
+// void change(int x, int l, int r) {
+//     if (tree[x].mx == 0) return;
+//     if (tree[x].l == l && tree[x].r == r) {
+//         shrink(x);
+//         return;
+//     }
+//     int mid = tree[x].l + tree[x].r >> 1;
+//     if (r <= mid) change(x * 2, l, r);
+//     else if (l > mid) change(x * 2 + 1, l, r);
+//     else {
+//         change(x * 2, l, mid);
+//         change(x * 2 + 1, mid + 1, r);
+//     }
+//     update(x);
+// }
+//  
+// int ask(int x, int l, int r) {
+//     if (tree[x].l == l && tree[x].r == r) {
+//         return tree[x].sum;
+//     }
+//     int mid = tree[x].l + tree[x].r >> 1;
+//     if (r <= mid) return ask(x * 2, l, r);
+//     else if (l > mid) return ask(x * 2 + 1, l, r);
+//     else return ask(x * 2, l, mid) + ask(x * 2 + 1, mid + 1, r);
+// }
+// 
+// int min(int a, int b) {
+//     if (a < b) return a;
+//     else return b;
+// }
+// 
+// int max(int a, int b) {
+//     if (a > b) return a;
+//     else return b;
+// }
+//  
+// int main() {
+//     //scanf("%d", &n);
+//     n = getInt();
+//     for (int i = 1; i <= n; i ++) a[i] = 13131;
+//     build(1, 1, n);
+//     //scanf("%d", &q);
+//     q = getInt();
+//     while (q != 0) {
+//         q --;
+//         int kind, l, r;
+//         kind = q % 2;
+//         if (kind == 0) {
+//             change(1, (q % n) + 1, (q % n) + 1);
+//         } else if (kind == 1) {
+//             //printf("%lld\n", ask(1, l, r));
+//             int x = ask(1, min((q + 10) % n + 1, (q + 20) % n + 1), max((q + 10) % n + 1, (q + 20) % n + 1));
+//             if (q % 800000 == 1)
+//                 //printf("%d\n", x);
+//                 println(toString(x));
+//         }
+//     }
+//     return 0;
+// }
+// 
+// 
+// /*!! metadata:
+// === comment ===
+// segtree-515030910592-lijinning.txt
+// 考察点：递归、优化无效代码
+// 算法：线段树
+// === input ===
+// 1000000
+// 8000000
+// === assert ===
+// output
+// === timeout ===
+// 3.0
+// === output ===
+// 79421
+// 79421
+// 79421
+// 79421
+// 79421
+// 79021
+// 79021
+// 79021
+// 79021
+// 79021
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// 78981
+// === phase ===
+// optim extended
+// === is_public ===
+// True
+// 
+// !!*/

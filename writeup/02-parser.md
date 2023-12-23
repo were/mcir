@@ -33,20 +33,21 @@ ForLoop
 |      `->Value=128
 `->Body=CompoundStmt
         |->Assignment
-	|->LHS=ArrayAccess
-	|      |->Array=Variable
-	|      |        `->Name="a"
-	|      `->Index=Variable
-	|               `->Name="i"
+        |->LHS=ArrayAccess
+        |      |->Array=Variable
+        |      |        `->Name="a"
+        |      `->Index=Variable
+        |               `->Name="i"
         `->RHS=BinaryOp
-	       |->Op="*"
-	       |->LHS=Variable
-	       |       `->Name="i"
-	       `->RHS=Variable
-		      `->Name="i"
+               |->Op="*"
+               |->LHS=Variable
+               |       `->Name="i"
+               `->RHS=Variable
+                `->Name="i"
 ````
 
-To get such data structure representation, we need to first
-define the syntax/grammar of the program, and then write a
-program accepts this syntax rules.
+To get such structured representation, AST, we need to first define
+the syntax/grammar of the program, and then write a
+program accepts this syntax rules. Along with accepting such
+rules, the AST can be built.
 
