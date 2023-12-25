@@ -1,0 +1,128 @@
+// Acknowledge: ACM Honored Class Compiler Class 2017 provided this test case.
+// Acknowledge: ChatGPT4 ports this to my language automatically and (mostly) correctly!
+
+func powermod(i32 x, i32 y, i32 mod) -> i32 {
+    if y == 0 {
+        return 1;
+    }
+    let i32 tmp = powermod(x, y / 2, mod);
+    if (y & 1) == 1 {
+        return (x * tmp % mod) * tmp % mod;
+    } else {
+        return tmp * tmp % mod;
+    }
+}
+
+func solve(i32 n, i32 m, i32[] fact, i32[] rev, i32 mod) -> i32 {
+    n = n - 1;
+    m = m - 1;
+    let i32 row = n + m - 1;
+    let i32 col = row - m + 1;
+    row = row - 1;
+    col = col - 1;
+    let i32 answer = fact[row] * rev[col] % mod * rev[row - col] % mod;
+    return answer;
+}
+
+func main() -> i32 {
+    let i32 mod = 10007;
+    let i32[] fact = new i32[210000];
+    let i32[] rev = new i32[210000];
+    let i32 tot = 0;
+
+    fact[0] = 1;
+    rev[0] = powermod(1, mod - 2, mod);
+    let i32 N = 210000;
+    for i in 1..N {
+        fact[i] = fact[i - 1] * i % mod;
+        rev[i] = powermod(fact[i], mod - 2, mod);
+    }
+    for i in 1000..5001 {
+        for j in 1..4001 {
+            let i32 n = i;
+            let i32 m = j;
+            let i32 answer = solve(n, m, fact, rev, mod);
+            tot = tot + answer;
+            tot = tot % mod;
+        }
+    }
+
+    println(toString(tot));
+    return 0;
+}
+
+// [Metadata.stdin]
+// [Metadata.end]
+
+// [Metadata.stdout]
+// 9493
+// [Metadata.end]
+
+// int mod;
+// int n, m;
+// int[] rev = new int[210000];
+// int[] fact = new int[210000];
+// int tot;
+// int powermod(int x, int y) {
+// 	if (y == 0) {
+// 		return 1;
+// 	}
+// 	int tmp = powermod(x, y / 2);
+// 	if ((y & 1) == 1) {
+// 		return x * tmp % mod * tmp % mod;
+// 	} else {
+// 		return tmp * tmp % mod;
+// 	}
+// }
+// 
+// void solve() {
+// 	n--;
+// 	m--;
+// 	int row = n + m - 1;
+// 	int col = row - m + 1;
+// 	row--;
+// 	col--;
+// 	int answer = fact[row] * rev[col] % mod * rev[row - col] % mod;
+// 	tot = tot + answer;
+// 	tot = tot % mod;
+// }
+// int main() {
+// 	mod = 10007;
+// 	fact[0] = 1;
+// 	rev[0] = powermod(1, mod - 2);
+// 	int N = 210000;
+// 	tot = 0;
+// 	int i;
+// 	int j;
+// 	for (i = 1; i <= N - 1; i++) {
+// 		fact[i] = fact[i - 1] * i % mod;
+// 		rev[i] = powermod(fact[i], mod - 2);
+// 	}
+// 	for (i = 1000; i <= 5000; i++) {
+// 		for (j = 1; j <= 4000; j++) {
+// 			n = i;
+// 			m = j;
+// 			solve();
+// 		}
+// 	}
+// 	
+// 	println(toString(tot));
+// }
+// 
+// /*!! metadata:
+// === comment ===
+// optim-515030910635-xunayun.txt
+// === input ===
+// 
+// === assert ===
+// output
+// === timeout ===
+// 5.0
+// === output ===
+// 9493
+// === phase ===
+// optim extended
+// === is_public ===
+// True
+// !!*/
+

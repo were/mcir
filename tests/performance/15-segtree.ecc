@@ -24,6 +24,7 @@ func update(i32 x, node[] tree) -> void {
 }
 
 func build(i32 x, i32 l, i32 r, node[] tree, i32[] a) -> void {
+    tree[x] = new node;
     tree[x].l = l;
     tree[x].r = r;
     if l == r {
@@ -127,26 +128,22 @@ func main() -> i32 {
     for i in 1..(n + 1) {
         a[i] = 13131;
     }
-    println("building.");
     build(1, 1, n, tree, a);
-    println("build done.");
-    // let i32 q;
-    // q = nextInt();
-    // while q != 0 {
-    //     q = q - 1;
-    //     let i32 kind;
-    //     kind = q % 2;
-    //     if kind == 0 {
-    //         change(1, (q % n) + 1, (q % n) + 1, tree, a);
-    //     } else {
-    //       if kind == 1 {
-    //             let i32 x = ask(1, min((q + 10) % n + 1, (q + 20) % n + 1), max((q + 10) % n + 1, (q + 20) % n + 1), tree);
-    //             if q % 800000 == 1 {
-    //                 println(toString(x));
-    //             }
-    //         }
-    //     }
-    // }
+    let i32 q;
+    q = nextInt();
+    while q != 0 {
+        q = q - 1;
+        let i32 kind;
+        kind = q % 2;
+        if kind == 0 {
+            change(1, (q % n) + 1, (q % n) + 1, tree, a);
+        } else {
+            let i32 x = ask(1, min((q + 10) % n + 1, (q + 20) % n + 1), max((q + 10) % n + 1, (q + 20) % n + 1), tree);
+            if q % 800000 == 1 {
+                println(toString(x));
+            }
+        }
+    }
     return 0;
 }
 
@@ -157,36 +154,7 @@ func main() -> i32 {
 
 // [Metadata.stdout]
 // 79421
-// 79421
-// 79421
-// 79421
-// 79421
 // 79021
-// 79021
-// 79021
-// 79021
-// 79021
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
-// 78981
 // 78981
 // 78981
 // 78981
